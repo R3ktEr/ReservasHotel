@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="69.0" layoutY="24.0" text="Modificar Cliente" AnchorPane.topAnchor="24.0">
+         <font>
+            <Font name="Sitka Small" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="64.0" layoutY="89.0" text="ID:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="90.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="134.0" text="Nombre:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="140.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="181.0" text="NIF:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="190.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="225.0" text="Nacionalidad:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="240.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="280.0" text="Habitacion:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="290.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="325.0" text="Estancia:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="340.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="367.0" text="N. Acompañantes:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="440.0">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="137.0" layoutY="340.0" text="De">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="139.0" layoutY="383.0" text="A">
+         <font>
+            <Font name="Sitka Small" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfID" layoutX="161.0" layoutY="87.0" prefHeight="25.0" prefWidth="210.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfNombre" layoutX="137.0" layoutY="137.0" prefHeight="25.0" prefWidth="161.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfNIF" layoutX="137.0" layoutY="187.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfNationality" layoutX="161.0" layoutY="238.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfRoom" layoutX="167.0" layoutY="287.0" prefHeight="25.0" prefWidth="142.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfFrom" layoutX="164.0" layoutY="337.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfTo" layoutX="172.0" layoutY="380.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="tfCompanions" layoutX="195.0" layoutY="437.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.rightAnchor="50.0" />
+      <Button fx:id="bSearch" layoutX="52.0" layoutY="490.0" mnemonicParsing="false" text="Modificar" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="52.0">
+         <font>
+            <Font name="Sitka Small" size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="bExit" layoutX="207.0" layoutY="490.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" text="Salir" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="51.0">
+         <font>
+            <Font name="Sitka Small" size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
