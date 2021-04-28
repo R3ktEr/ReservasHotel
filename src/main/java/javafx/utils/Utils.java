@@ -1,14 +1,7 @@
 package javafx.utils;
 
-import java.io.File;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import javafx.controller.LoginController;
-import javafx.model.User;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Utils {
 	
@@ -29,41 +22,36 @@ public class Utils {
 	public static void setUtils(Utils utils) {
 		Utils._myUtils = utils;
 	}
-
-	public boolean saveUsers(String url)
-	{
-		boolean result=false;
-		
-		try {
-			JAXBContext jaxbContext= JAXBContext.newInstance(User.class);
-			Marshaller marshaller=jaxbContext.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.marshal(LoginController.getMyLoginController(), new File(url));
-			result=true;
-		} catch (JAXBException e) {
-			System.out.println("Error al guardar la base de datos de los usuarios");
-			//e.printStackTrace();
-		}
-		
-		return result;
+	
+	public static void popInfo(String content) {
+		Alert alert=new Alert(AlertType.INFORMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Info");
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
-
-	public boolean loadUsers(String url)
-	{
-		boolean result=false;
-		
-		try {
-			JAXBContext jaxbcontent=JAXBContext.newInstance(User.class);
-			Unmarshaller unmarshaller=jaxbcontent.createUnmarshaller();
-			LoginController.getMyLoginController().setUsers(((LoginController) unmarshaller.unmarshal(new File(url))).getUsers());
-			result=true;
-		} catch (JAXBException e) {
-			System.out.println("Error al cargar la base de datos de los usuarios: Fichero no encontrado!");
-			//e.printStackTrace();
-		}
-		
-		
-		return result;
+	
+	public static void popError(String content) {
+		Alert alert=new Alert(AlertType.ERROR);
+		alert.setHeaderText(null);
+		alert.setTitle("Error");
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
-
+	
+	public static void popConfirmation(String content) {
+		Alert alert=new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Confirmacion");
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
+	
+	public static void popWarning(String content) {
+		Alert alert=new Alert(AlertType.WARNING);
+		alert.setHeaderText(null);
+		alert.setTitle("Alerta");
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
 }
