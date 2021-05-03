@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="69.0" layoutY="24.0" text="Modificar Cliente" AnchorPane.topAnchor="24.0">
+      <Label layoutX="88.0" layoutY="25.0" text="Añadir Cliente" AnchorPane.topAnchor="25.0">
          <font>
             <Font name="Sitka Small" size="24.0" />
          </font>
@@ -66,7 +66,7 @@
       <TextField fx:id="tfFrom" layoutX="164.0" layoutY="337.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
       <TextField fx:id="tfTo" layoutX="172.0" layoutY="380.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
       <TextField fx:id="tfCompanions" layoutX="195.0" layoutY="437.0" prefHeight="25.0" prefWidth="95.0" AnchorPane.rightAnchor="50.0" />
-      <Button fx:id="bModify" layoutX="52.0" layoutY="490.0" mnemonicParsing="false" text="Modificar" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="52.0">
+      <Button fx:id="bAdd" layoutX="52.0" layoutY="490.0" mnemonicParsing="false" text="Añadir" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="52.0">
          <font>
             <Font name="Sitka Small" size="19.0" />
          </font>

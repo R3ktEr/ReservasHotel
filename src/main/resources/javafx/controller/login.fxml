@@ -35,11 +35,11 @@
          </font>
       </Label>
       <TextField fx:id="tUser" layoutX="62.0" layoutY="122.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" />
+      <PasswordField fx:id="tPassword" layoutX="61.0" layoutY="200.0" onAction="#logIn" />
       <Button fx:id="bLogin" layoutX="84.0" layoutY="265.0" mnemonicParsing="false" onAction="#logIn" prefHeight="34.0" prefWidth="105.0" text="Entrar" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
          <font>
             <Font name="Sitka Small" size="18.0" />
          </font>
       </Button>
-      <PasswordField fx:id="tPassword" layoutX="61.0" layoutY="200.0" />
    </children>
 </AnchorPane>

@@ -34,8 +34,6 @@ public class LoginController implements Initializable{
 	
 	private List<User> users;
 	
-	public LoginController() {}
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.users=UserDAO.getUserDAO().loadUsers("users.xml");
@@ -61,7 +59,7 @@ public class LoginController implements Initializable{
 					found=true;
 					
 					try {
-						App.changeScene("main");
+						App.changeScene("rooms");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

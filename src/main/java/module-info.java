@@ -4,6 +4,7 @@ module javafx.controller {
     requires transitive javafx.base;
 	requires java.xml.bind;
 	requires transitive javafx.graphics;
+	requires transitive java.sql;
 	
 	opens javafx.model to java.xml.bind;
     opens javafx.controller to javafx.fxml, java.xml.bind;

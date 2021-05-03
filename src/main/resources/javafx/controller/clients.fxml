@@ -4,30 +4,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.ClientsController">
    <children>
-      <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar fx:id="menuBar" layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu fx:id="mRooms" mnemonicParsing="false" text="Habitaciones" />
-          <Menu fx:id="mClients" mnemonicParsing="false" text="Clientes" />
+          <Menu fx:id="mClients" mnemonicParsing="false" onAction="#changeToRooms" text="Habitaciones">
+               <items>
+                  <MenuItem fx:id="mRooms" mnemonicParsing="false" onAction="#changeToRooms" text="Cambiar a la ventana de habitaciones" />
+               </items></Menu>
         </menus>
       </MenuBar>
-      <TableView layoutX="57.0" layoutY="57.0" prefHeight="200.0" prefWidth="476.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
+      <TableView fx:id="clientsTable" layoutX="57.0" layoutY="57.0" prefHeight="200.0" prefWidth="476.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
         <columns>
-          <TableColumn fx:id="tcID" prefWidth="50.0" text="ID" />
-          <TableColumn fx:id="tcName" text="Nombre" />
-            <TableColumn fx:id="tcNIF" prefWidth="78.0" text="NIF" />
-            <TableColumn fx:id="tcNationality" prefWidth="92.0" text="Nacionalidad" />
-            <TableColumn fx:id="tcRoom" prefWidth="75.0" text="Habitacion" />
-            <TableColumn fx:id="tcStanceStart" prefWidth="88.0" text="F. Ini. Estancia" />
-            <TableColumn fx:id="tcStanceEnd" prefWidth="86.0" text="F. Fin. Estancia" />
-            <TableColumn fx:id="tcNumberCompanions" prefWidth="69.0" text="N. Acompañantes" />
+          <TableColumn fx:id="colID" prefWidth="50.0" text="ID" />
+          <TableColumn fx:id="colName" text="Nombre" />
+            <TableColumn fx:id="colNif" prefWidth="78.0" text="NIF" />
+            <TableColumn fx:id="colNationality" prefWidth="92.0" text="Nacionalidad" />
+            <TableColumn fx:id="colRoom" prefWidth="75.0" text="Habitacion" />
+            <TableColumn fx:id="colStanceStartDate" prefWidth="88.0" text="F. Ini. Estancia" />
+            <TableColumn fx:id="colStanceEndDate" prefWidth="86.0" text="F. Fin. Estancia" />
+            <TableColumn fx:id="colNumCompanions" prefWidth="69.0" text="N. Acompañantes" />
         </columns>
       </TableView>
       <Label layoutX="319.0" layoutY="42.0" text="Clientes">
@@ -40,17 +42,18 @@
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bSearch" layoutX="176.0" layoutY="322.0" mnemonicParsing="false" text="Buscar">
+      <Button fx:id="bAdd" layoutX="294.0" layoutY="321.0" mnemonicParsing="false" text="Añadir" />
+      <Button fx:id="bSearch" layoutX="180.0" layoutY="322.0" mnemonicParsing="false" text="Buscar">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bModify" layoutX="281.0" layoutY="322.0" mnemonicParsing="false" text="Modificar">
+      <Button fx:id="bModify" layoutX="401.0" layoutY="322.0" mnemonicParsing="false" text="Modificar">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bDelete" layoutX="413.0" layoutY="322.0" mnemonicParsing="false" text="Borrar">
+      <Button fx:id="bDelete" layoutX="537.0" layoutY="322.0" mnemonicParsing="false" text="Borrar">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
