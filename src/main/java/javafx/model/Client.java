@@ -1,20 +1,34 @@
 package javafx.model;
 
+import java.time.LocalDate;
+
 public class Client extends Person{
 
-	private int ID;
-	private String nationality;
+	protected int ID;
+	protected String nationality;
+	protected int room;
+	protected LocalDate inistance;
+	protected LocalDate endstance;
+	protected int ncompanions;
 	
-	public Client(String name, String nIF, int iD, String nationality) {
+	public Client(String name, String nIF, int iD, String nationality, int room, LocalDate inistance, LocalDate endstance, int ncompanions) {
 		super(name, nIF);
 		ID = iD;
 		this.nationality = nationality;
+		this.room=room;
+		this.inistance=inistance;
+		this.endstance=endstance;
+		this.ncompanions=ncompanions;
 	}
 	
 	public Client() {
 		super();
 		ID = -1;
 		this.nationality = "";
+		this.room=-1;
+		this.inistance=LocalDate.parse("2000-01-01");
+		this.endstance=LocalDate.parse("2000-01-01");
+		this.ncompanions=-1;
 	}
 
 	public int getID() {
@@ -31,6 +45,38 @@ public class Client extends Person{
 
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+	}
+
+	public int getRoom() {
+		return room;
+	}
+
+	public void setRoom(int room) {
+		this.room = room;
+	}
+
+	public LocalDate getInistance() {
+		return inistance;
+	}
+
+	public void setInistance(LocalDate inistance) {
+		this.inistance = inistance;
+	}
+
+	public LocalDate getEndstance() {
+		return endstance;
+	}
+
+	public void setEndstance(LocalDate endstance) {
+		this.endstance = endstance;
+	}
+
+	public int getNcompanions() {
+		return ncompanions;
+	}
+
+	public void setNcompanions(int ncompanions) {
+		this.ncompanions = ncompanions;
 	}
 
 	@Override

@@ -1,7 +1,12 @@
 package javafx.utils;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class Utils {
 	
@@ -39,12 +44,18 @@ public class Utils {
 		alert.showAndWait();
 	}
 	
-	public static void popConfirmation(String content) {
+	public static boolean popConfirmation(String content) {
 		Alert alert=new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
 		alert.setTitle("Confirmacion");
 		alert.setContentText(content);
-		alert.showAndWait();
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    return true;
+		} else {
+		    return false;
+		}
 	}
 	
 	public static void popWarning(String content) {
@@ -53,5 +64,17 @@ public class Utils {
 		alert.setTitle("Alerta");
 		alert.setContentText(content);
 		alert.showAndWait();
+	}
+	
+	public static LocalDate dateToLocalDate(Date date) {
+        LocalDate localDate = date.toLocalDate();
+        
+        return localDate;
+	}
+	
+	public static Date localDateToDate(LocalDate date) {
+		Date sqlDate=Date.valueOf(date);
+		
+		return sqlDate;
 	}
 }

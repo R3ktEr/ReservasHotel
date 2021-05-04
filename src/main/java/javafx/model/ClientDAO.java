@@ -1,53 +1,171 @@
 package javafx.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.utils.DBConnection;
+import javafx.utils.Utils;
 
 public class ClientDAO extends Client{
 	
-	List<Client> clientList;
+	private static final String INSERTCLIENT="Insert into client (ID, name, NIF, nationality, room, inistance, endstance, ncompanions) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String GETCLIENTBYNIF="Select * from client where NIF=";
+	private static final String DELETEBYID="Delete from client where ID=";
+	private static final String GETALLCLIENTS="Select * from client";
+	
+	private ObservableList<Client> clientList;
 	
 	public ClientDAO() {
 		super();
-		this.clientList=new ArrayList<Client>();
+		this.clientList=FXCollections.observableArrayList();
 	}
 	
-	public ClientDAO(String name, String nIF, int iD, String nationality, List<Client> clientList) {
-		super(name, nIF, iD, nationality);
-		this.clientList=new ArrayList<Client>();
+	public ClientDAO(Client c) {
+		super(c.name,c.NIF,c.ID,c.nationality,c.room,c.inistance,c.endstance,c.ncompanions);
+		this.clientList=FXCollections.observableArrayList();
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((clientList == null) ? 0 : clientList.hashCode());
-		return result;
+	public ClientDAO(String name, String nIF, int iD, String nationality, int room, LocalDate inistance, LocalDate endstance, int ncompanions) {
+		super(name, nIF, iD, nationality, room, inistance, endstance, ncompanions);
+		this.clientList=FXCollections.observableArrayList();
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ClientDAO other = (ClientDAO) obj;
-		if (clientList == null) {
-			if (other.clientList != null)
-				return false;
-		} else if (!clientList.equals(other.clientList))
-			return false;
-		return true;
+	
+	public void iniClientList(ObservableList<Client> clientList) {
+		this.clientList=clientList;
 	}
-
-	public List<Client> getClientList() {
+	
+	public ObservableList<Client> getClientList() {
 		return clientList;
 	}
 
-	public void setClientList(List<Client> clientList) {
-		this.clientList = clientList;
+	public ObservableList<Client> getAllClients() {
+		Connection con=DBConnection.getConnection();
+		Client c;
+		
+		if(con!=null) {
+			try {
+				PreparedStatement ps=con.prepareStatement(GETALLCLIENTS);
+				ResultSet rs=ps.executeQuery();
+				
+				while(rs.next()) {
+					c=new Client();
+					
+					c.setID(rs.getInt("ID"));
+					c.setName(rs.getString("name"));
+					c.setNIF(rs.getString("NIF"));
+					c.setNationality(rs.getString("nationality"));
+					c.setRoom(rs.getInt("room"));
+					c.setInistance(Utils.dateToLocalDate(rs.getDate("inistance")));
+					c.setEndstance(Utils.dateToLocalDate(rs.getDate("endstance")));
+					c.setNcompanions(rs.getInt("ncompanions"));
+					
+					this.clientList.add(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return this.clientList;
 	}
 	
+	public void saveClient() {
+		Connection con=DBConnection.getConnection();
+		
+		if(con!=null) {
+			try {
+				PreparedStatement ps=con.prepareStatement(INSERTCLIENT);
+				ps.setString(1, this.name);
+				ps.setString(2, this.NIF);
+				ps.setString(3, this.nationality);
+				ps.setInt(4, this.room);
+				ps.setDate(5, Utils.localDateToDate(this.inistance));
+				ps.setDate(6, Utils.localDateToDate(this.endstance));
+				ps.setInt(7, this.ncompanions);
+				
+				ps.executeUpdate();
+				getDatabaseID();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}else {
+			System.out.println("Error al conectarse a la base de datos");
+		}
+	}
+	
+	public void getDatabaseID() {
+		Connection con=DBConnection.getConnection();
+		
+		if(con!=null) {
+			try {
+				Statement st=con.createStatement();
+				ResultSet rs=st.executeQuery(GETCLIENTBYNIF+"'"+this.NIF+"'");
+				
+				if(rs.next()) {
+					this.ID=rs.getInt("ID");				
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}else {
+			System.out.println("Error al conectarse a la base de datos");
+		}
+	}
+	
+	public Client getClientByNif() {
+		Connection con=DBConnection.getConnection();
+		Client c=null;
+		
+		if(con!=null) {
+			try {
+				c=new Client();
+				Statement st=con.createStatement();
+				ResultSet rs=st.executeQuery(GETCLIENTBYNIF+"'"+this.NIF+"'");
+				
+				c.setID(rs.getInt("ID"));
+				c.setName(rs.getString("name"));
+				c.setNIF(rs.getString("NIF"));
+				c.setNationality(rs.getString("nationality"));
+				c.setRoom(rs.getInt("room"));
+				c.setInistance(Utils.dateToLocalDate(rs.getDate("inistance")));
+				c.setEndstance(Utils.dateToLocalDate(rs.getDate("endstance")));
+				c.setNcompanions(rs.getInt("ncompanions"));	
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}else {
+			System.out.println("Error al conectarse a la base de datos");
+		}
+		
+		return c;
+	}
+	
+	public void deleteClientByID() {
+		Connection con=DBConnection.getConnection();
+		
+		if(con!=null) {
+			try {
+				Statement st=con.createStatement();
+				st.executeUpdate(DELETEBYID+"'"+this.ID+"'");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("Error al conectarse a la base de datos");
+		}
+	}
 }
