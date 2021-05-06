@@ -19,8 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.utils.Utils;
 
-public class AddClientController {
-	
+public class ModifyClientController {
 	@FXML
 	TextField tfName;
 	
@@ -43,19 +42,22 @@ public class AddClientController {
 	DatePicker dpTo;
 	
 	@FXML
-	Button bAdd;
+	Button bModify;
 	
 	@FXML
 	Button bExit;
 	
 	private Client client;
-	private ObservableList<Client> clientList;
+	private ObservableList<Client> clientList=FXCollections.observableArrayList();
+	private ObservableList<Room> roomsList=FXCollections.observableArrayList();
+	private ObservableList<Room> freeRoomsList=FXCollections.observableArrayList();
 	
-	public void initClientList(ObservableList<Client> clientList) {
+	public void initWindow(ObservableList<Client> clientList, Client client) {
+		this.clientList=clientList;
 		RoomDAO r=new RoomDAO();
-		ObservableList<Room> roomsList=FXCollections.observableArrayList();
-		ObservableList<Room> freeRoomsList=FXCollections.observableArrayList();
-		roomsList=r.loadRoomList();
+		this.client=client;
+
+		this.roomsList=r.loadRoomList();
 		
 		//Implementar la lista de habitaciones libres
 		Iterator<Room> roomIterator=roomsList.iterator();
@@ -72,43 +74,45 @@ public class AddClientController {
 			}
 			
 			if(!found) {
-				freeRoomsList.add(room);
+				this.freeRoomsList.add(room);
 			}
 		}
 		
-		this.clientList=clientList;
 		this.dpFrom.setEditable(false);
-		setDatePicker(dpFrom);
+		setDatePicker(dpFrom, this.client.getInistance());
 		this.dpTo.setEditable(false);
-		setDatePicker(dpTo);
+		setDatePicker(dpTo, this.client.getEndstance());
 		this.cbRoom.setItems(freeRoomsList);;
 		this.tfName.setPromptText("Introduzca un nombre");
 		this.tfNIF.setPromptText("Ej: 24124687T");
 		this.tfNationality.setPromptText("Ej: Alemania");
+		
+		tfName.setText(this.client.getName());
+		tfNIF.setText(this.client.getNIF());
+		tfNationality.setText(this.client.getNationality());
+		cbRoom.setValue(getClientRoom(this.client));
+		dpFrom.setValue(this.client.getInistance());
+		dpTo.setValue(this.client.getEndstance());
+		tfNCompanions.setText(this.client.getNcompanions()+"");
 	}
 
 	@FXML
-	public void add(ActionEvent event) {
+	public void modify(ActionEvent event) {
 		boolean valid=true;
+		Client client2=new Client();
 		
-		client=new Client();
-		//DateTimeFormatter f=DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		//DateTimeFormatter f=DateTimeFormatter.ofPattern("dd-MM-yyyy");		
+		client2.setID(client.getID());
+		client2.setName(tfName.getText());
+		client2.setNIF(tfNIF.getText());
+		client2.setNationality(tfNationality.getText());
+		client2.setRoom(cbRoom.getSelectionModel().getSelectedItem().getNumber());
+		client2.setInistance(dpFrom.getValue());
+		client2.setEndstance(dpTo.getValue());
+		client2.setNcompanions(Integer.parseInt(tfNCompanions.getText()));
 		
-		client.setName(tfName.getText());
-		client.setNIF(tfNIF.getText());
-		client.setNationality(tfNationality.getText());
-		client.setRoom(cbRoom.getSelectionModel().getSelectedItem().getNumber());
-		client.setInistance(dpFrom.getValue());
-		client.setEndstance(dpTo.getValue());
-		client.setNcompanions(Integer.parseInt(tfNCompanions.getText()));
-		
-		if(!client.getNIF().matches("[0-9]{8}[A-Z]")&&valid) {
+		if(!client2.getNIF().matches("[0-9]{8}[A-Z]")&&valid) {
 			Utils.popError("Error: Introduzca un NIF con el formato indicado");
-			valid=false;
-		}
-		
-		if(this.clientList.contains(client)&&valid) {
-			Utils.popError("Error, el cliente ya existe");
 			valid=false;
 		}
 		
@@ -120,16 +124,15 @@ public class AddClientController {
 		
 		if(valid) {
 			
-			ClientDAO cd=new ClientDAO(client);
-			cd.saveClient();
+			ClientDAO cd=new ClientDAO(client2);
+			cd.updateClient();
 			
-			client=(Client) cd;
-			
-			if(client!=null) {
-				this.clientList.add(client);						
+			if(client2!=null) {
+				this.clientList.remove(this.client);
+				this.clientList.add(client2);						
 			}
 			
-			Stage stage=(Stage) this.bAdd.getScene().getWindow();
+			Stage stage=(Stage) this.bModify.getScene().getWindow();
 			stage.close();
 		}
 	}
@@ -138,7 +141,7 @@ public class AddClientController {
 	public void exit(ActionEvent event) {
 		client=null;
 		
-		Stage stage=(Stage) this.bAdd.getScene().getWindow();
+		Stage stage=(Stage) this.bModify.getScene().getWindow();
 		stage.close();
 	}
 
@@ -146,7 +149,7 @@ public class AddClientController {
 		return client;
 	}
 	
-	public void setDatePicker(DatePicker dp) {
+	public void setDatePicker(DatePicker dp, LocalDate stanceDate) {
 		dp.setDayCellFactory(picker -> new DateCell() {
 	        public void updateItem(LocalDate date, boolean empty) {
 	            super.updateItem(date, empty);
@@ -155,5 +158,22 @@ public class AddClientController {
 	            setDisable(empty || date.compareTo(today) < 0 );
 	        }
 	    });
+		
+		dp.setValue(stanceDate);
+	}
+	
+	public Room getClientRoom(Client c) {
+		Iterator<Room> roomIterator=this.roomsList.iterator();
+		Room r=new Room();
+		
+		while(roomIterator.hasNext()) {
+			r=roomIterator.next();
+			
+			if(r.getNumber()==c.getRoom()) {
+				return r;
+			}
+		}
+		
+		return r;
 	}
 }

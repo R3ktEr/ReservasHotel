@@ -14,7 +14,8 @@ import javafx.utils.Utils;
 
 public class ClientDAO extends Client{
 	
-	private static final String INSERTCLIENT="Insert into client (ID, name, NIF, nationality, room, inistance, endstance, ncompanions) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String SAVECLIENT="Insert into client (ID, name, NIF, nationality, room, inistance, endstance, ncompanions) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String UPDATECLIENT="Update client set name=?, NIF=?, nationality=?, room=?, inistance=?, endstance=?, ncompanions=? where ID=?";
 	private static final String GETCLIENTBYNIF="Select * from client where NIF=";
 	private static final String DELETEBYID="Delete from client where ID=";
 	private static final String GETALLCLIENTS="Select * from client";
@@ -82,7 +83,7 @@ public class ClientDAO extends Client{
 		
 		if(con!=null) {
 			try {
-				PreparedStatement ps=con.prepareStatement(INSERTCLIENT);
+				PreparedStatement ps=con.prepareStatement(SAVECLIENT);
 				ps.setString(1, this.name);
 				ps.setString(2, this.NIF);
 				ps.setString(3, this.nationality);
@@ -91,8 +92,43 @@ public class ClientDAO extends Client{
 				ps.setDate(6, Utils.localDateToDate(this.endstance));
 				ps.setInt(7, this.ncompanions);
 				
+				//On duplicate key
+				ps.setString(8, this.name);
+				ps.setString(9, this.NIF);
+				ps.setString(10, this.nationality);
+				ps.setInt(11, this.room);
+				ps.setDate(12, Utils.localDateToDate(this.inistance));
+				ps.setDate(13, Utils.localDateToDate(this.endstance));
+				ps.setInt(14, this.ncompanions);
+				
 				ps.executeUpdate();
 				getDatabaseID();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}else {
+			System.out.println("Error al conectarse a la base de datos");
+		}
+	}
+	
+	public void updateClient() {
+		Connection con=DBConnection.getConnection();
+		
+		if(con!=null) {
+			try {
+				PreparedStatement ps=con.prepareStatement(UPDATECLIENT);
+				ps.setString(1, this.name);
+				ps.setString(2, this.NIF);
+				ps.setString(3, this.nationality);
+				ps.setInt(4, this.room);
+				ps.setDate(5, Utils.localDateToDate(this.inistance));
+				ps.setDate(6, Utils.localDateToDate(this.endstance));
+				ps.setInt(7, this.ncompanions);
+				
+				ps.setInt(8, this.ID);
+				
+				ps.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

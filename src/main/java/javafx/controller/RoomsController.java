@@ -75,7 +75,8 @@ public class RoomsController implements Initializable{
     }
     
     public void setTableRooms() {
-    	roomList=RoomDAO.getMyRoomDAO().loadRoomList();
+    	RoomDAO r=new RoomDAO();
+    	roomList=r.loadRoomList();
     	this.colNumber.setCellValueFactory(new PropertyValueFactory<Room, Integer>("number"));
     	this.colFloor.setCellValueFactory(new PropertyValueFactory<Room, Integer>("floor"));
     	this.colZone.setCellValueFactory(new PropertyValueFactory<Room, String>("zone"));

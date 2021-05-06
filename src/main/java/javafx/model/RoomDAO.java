@@ -14,21 +14,11 @@ public class RoomDAO extends Room{
 
 	private static final String GETALLROOMS="Select * from room";
 	
-	private static RoomDAO _roomDAO;
-	
 	public ObservableList<Room> roomsList;
 	
-	private RoomDAO() {
+	public RoomDAO() {
 		super();
 		this.roomsList=FXCollections.observableArrayList();
-	}
-	
-	public static RoomDAO getMyRoomDAO() {
-		if(_roomDAO==null) {
-			_roomDAO=new RoomDAO();
-		}
-		
-		return _roomDAO;
 	}
 	
 	public RoomDAO(int number, int floor, String zone, int capacity, String type, double price, String status) {
@@ -61,7 +51,7 @@ public class RoomDAO extends Room{
 		return true;
 	}
 
-	public List<Room> getRoomsList() {
+	public ObservableList<Room> getRoomsList() {
 		return roomsList;
 	}
 
@@ -92,14 +82,12 @@ public class RoomDAO extends Room{
 					}
 				}
 				
-				return this.roomsList;
-				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
-		return null;
+		return this.roomsList;
 	}
 }

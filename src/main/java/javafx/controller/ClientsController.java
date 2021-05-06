@@ -22,7 +22,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.utils.Utils;
@@ -135,8 +134,8 @@ public class ClientsController implements Initializable{
 		
 		this.clientsTable.refresh();
 		
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -156,8 +155,26 @@ public class ClientsController implements Initializable{
 	}
 	
 	@FXML
-	public void selectClient(MouseEvent event) {
-		this.c=this.clientsTable.getSelectionModel().getSelectedItem();
+	public void modifyClient(ActionEvent event) {
+		try {
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("modifyClient.fxml"));
+			Parent root=loader.load();
+			ModifyClientController controller=loader.getController();
+			
+			this.c=this.clientsTable.getSelectionModel().getSelectedItem();
+			controller.initWindow(clientList, this.c);
+			
+			Scene scene=new Scene(root);
+			Stage stage=new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
+			
+			this.clientsTable.refresh();
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
-	
 }

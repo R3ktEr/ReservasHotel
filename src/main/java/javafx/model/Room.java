@@ -112,8 +112,7 @@ public class Room {
 
 	@Override
 	public String toString() {
-		return "Room [number=" + number + ", floor=" + floor + ", zone=" + zone + ", capacity=" + capacity + ", type="
-				+ type + ", price=" + price + ", status=" + status + "]";
+		return "Nº "+this.number+" Tipo: "+this.type+" Capacidad: "+this.capacity;
 	}
 	
 }
