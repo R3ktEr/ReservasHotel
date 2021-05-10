@@ -2,6 +2,7 @@ package javafx.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.utils.DBConnection;
 import javafx.utils.Utils;
 
 public class LoginController implements Initializable{
@@ -59,7 +61,9 @@ public class LoginController implements Initializable{
 					found=true;
 					
 					try {
-						App.changeScene("rooms");
+						if(checkDBConnection()) {
+							App.changeScene("rooms");							
+						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -146,4 +150,14 @@ public class LoginController implements Initializable{
 		this.users = users;
 	}
 	
+	public boolean checkDBConnection() {
+		Connection con=DBConnection.getConnection();
+		
+		if(con==null) {
+			App.closeApp();
+			return false;
+		}
+		
+		return true;
+	}
 }

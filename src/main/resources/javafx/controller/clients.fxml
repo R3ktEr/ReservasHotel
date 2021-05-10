@@ -7,10 +7,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.ClientsController">
+<AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#unselectClient" prefHeight="432.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.ClientsController">
    <children>
       <MenuBar fx:id="menuBar" layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -20,7 +21,7 @@
                </items></Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="clientsTable" layoutX="57.0" layoutY="57.0" prefHeight="200.0" prefWidth="476.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
+      <TableView fx:id="clientsTable" layoutX="57.0" layoutY="57.0" onMouseClicked="#selectClient" prefHeight="200.0" prefWidth="476.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="125.0">
         <columns>
           <TableColumn fx:id="colID" prefWidth="50.0" text="ID" />
           <TableColumn fx:id="colName" text="Nombre" />
@@ -37,26 +38,32 @@
             <Font name="Sitka Small" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="bSeeAll" layoutX="50.0" layoutY="322.0" mnemonicParsing="false" text="Ver Todos" AnchorPane.leftAnchor="50.0">
+      <Button fx:id="bSeeAll" layoutX="563.0" layoutY="82.0" mnemonicParsing="false" onAction="#showAllClients" text="Mostrar Todos" AnchorPane.leftAnchor="563.0">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bAdd" layoutX="294.0" layoutY="321.0" mnemonicParsing="false" onAction="#addClient" text="Añadir" />
-      <Button fx:id="bSearch" layoutX="180.0" layoutY="322.0" mnemonicParsing="false" text="Buscar">
+      <Button fx:id="bAdd" layoutX="50.0" layoutY="366.0" mnemonicParsing="false" onAction="#addClient" text="Añadir Cliente" />
+      <Button fx:id="bSearch" layoutX="389.0" layoutY="81.0" mnemonicParsing="false" onAction="#advancedSearch" text="Busqueda avanzada">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bModify" layoutX="401.0" layoutY="322.0" mnemonicParsing="false" onAction="#modifyClient" text="Modificar">
+      <Button fx:id="bModify" layoutX="299.0" layoutY="368.0" mnemonicParsing="false" onAction="#modifyClient" text="Modificar Cliente">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bDelete" layoutX="537.0" layoutY="322.0" mnemonicParsing="false" onAction="#deleteClient" text="Borrar">
+      <Button fx:id="bDelete" layoutX="566.0" layoutY="368.0" mnemonicParsing="false" onAction="#deleteClient" text="Borrar Cliente">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
+      <Label layoutX="50.0" layoutY="85.0" text="Filtrar por nombre:" AnchorPane.leftAnchor="50.0">
+         <font>
+            <Font name="Sitka Small" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfFilter" layoutX="181.0" layoutY="80.0" onKeyTyped="#filterByName" prefHeight="25.0" prefWidth="164.0" />
    </children>
 </AnchorPane>

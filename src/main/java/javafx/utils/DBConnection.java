@@ -12,21 +12,28 @@ public class DBConnection {
 	private static final String USER="root";
 	private static final String PASSWORD="";
 	
-	public static void conect() {
+	public static boolean conect() {
 		
 		try {
 			//Esto pa que sirve?
 			//Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection(SERVER+"/"+DATABASE,USER,PASSWORD);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Utils.popError("Error: El servidor no responde\n\nDebido a la severidad de este error, la aplicacion se cerrará");
+			//e.printStackTrace();
+			return false;
 		} 
 	}
 	
 	public static Connection getConnection() {
 		if(con==null) {
-			conect();
+			if(conect()) {
+				return con;
+			}else {
+				return null;
+			}
 		}
 		
 		return con;

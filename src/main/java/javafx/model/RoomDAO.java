@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.utils.DBConnection;
+import javafx.utils.Utils;
 
 public class RoomDAO extends Room{
 
@@ -83,7 +83,7 @@ public class RoomDAO extends Room{
 				}
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				Utils.popError("Error al cargar la base de datos: Se recomienda reiniciar la aplicacion");
 				e.printStackTrace();
 			}
 		}

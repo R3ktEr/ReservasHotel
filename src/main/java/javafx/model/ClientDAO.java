@@ -92,15 +92,6 @@ public class ClientDAO extends Client{
 				ps.setDate(6, Utils.localDateToDate(this.endstance));
 				ps.setInt(7, this.ncompanions);
 				
-				//On duplicate key
-				ps.setString(8, this.name);
-				ps.setString(9, this.NIF);
-				ps.setString(10, this.nationality);
-				ps.setInt(11, this.room);
-				ps.setDate(12, Utils.localDateToDate(this.inistance));
-				ps.setDate(13, Utils.localDateToDate(this.endstance));
-				ps.setInt(14, this.ncompanions);
-				
 				ps.executeUpdate();
 				getDatabaseID();
 			} catch (SQLException e) {

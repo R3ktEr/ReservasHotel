@@ -21,13 +21,20 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.utils.Utils;
 
 public class ClientsController implements Initializable{
 
+	@FXML
+	AnchorPane background;
+	
 	@FXML
 	Button bSeeAll;
 	 
@@ -42,6 +49,9 @@ public class ClientsController implements Initializable{
 	 
 	@FXML
 	Button bDelete;
+	
+	@FXML
+	TextField tfFilter;
 	 
 	@FXML
 	TableView<Client> clientsTable;
@@ -86,6 +96,9 @@ public class ClientsController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		this.clientList=FXCollections.observableArrayList();
 		setTableClients();
+		this.bModify.setDisable(true);
+		this.bDelete.setDisable(true);
+		this.tfFilter.setPromptText("Introduzca un nombre");
 	}
 	
 	@FXML
@@ -104,6 +117,7 @@ public class ClientsController implements Initializable{
 		this.clientList=cd.getAllClients();
 		
 		this.clientsTable.setItems(clientList);
+		this.clientsTable.sort();
 	}
 	
 	@FXML
@@ -133,6 +147,7 @@ public class ClientsController implements Initializable{
 		stage.showAndWait();
 		
 		this.clientsTable.refresh();
+		this.clientsTable.sort();
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -171,10 +186,75 @@ public class ClientsController implements Initializable{
 			stage.showAndWait();
 			
 			this.clientsTable.refresh();
+			this.clientsTable.sort();
 			
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	}
+	
+	@FXML
+	public void selectClient(MouseEvent event) {
+		if(this.clientsTable.getSelectionModel().getSelectedItem()!=null) {
+			this.bModify.setDisable(false);
+			this.bDelete.setDisable(false);
+		}
+	}
+	
+	@FXML
+	public void unselectClient(MouseEvent event) {
+		this.clientsTable.getSelectionModel().clearSelection();
+		this.bModify.setDisable(true);
+		this.bDelete.setDisable(true);
+		this.clientsTable.setItems(clientList);
+	}
+	
+	@FXML
+	public void filterByName(KeyEvent event) {
+		String filter=this.tfFilter.getText();
+		
+		if(filter.isEmpty()) {
+			this.clientsTable.setItems(clientList);
+		}else {
+			ObservableList<Client> clientsFiltered=FXCollections.observableArrayList();
+			clientsFiltered.clear();
+			
+			for (Client client : this.clientList) {
+				
+				if(client.getName().toLowerCase().startsWith(filter.toLowerCase())) {
+					clientsFiltered.add(client);
+				}
+			}
+			
+			this.clientsTable.setItems(clientsFiltered);
+			this.clientsTable.sort();
+		}
+	}
+	
+	@FXML
+	public void advancedSearch(ActionEvent event) {
+		try {
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("searchClient.fxml"));
+			Parent root=loader.load();
+			SearchClientController controller=loader.getController();
+			
+			controller.initAtributtes(this.clientList, this.clientsTable);
+			
+			Scene scene=new Scene(root);
+			Stage stage=new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void showAllClients() {
+		this.clientsTable.setItems(clientList);
 	}
 }
