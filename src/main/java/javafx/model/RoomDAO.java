@@ -13,6 +13,7 @@ import javafx.utils.Utils;
 public class RoomDAO extends Room{
 
 	private static final String GETALLROOMS="Select * from room";
+	private static final String UPDATEROOMS="Update room set state=? where number=?";
 	
 	public ObservableList<Room> roomsList;
 	
@@ -89,5 +90,24 @@ public class RoomDAO extends Room{
 		}
 		
 		return this.roomsList;
+	}
+	
+	public void updateRoom() {
+		Connection con=DBConnection.getConnection();
+		
+		if(con!=null) {
+			try {
+				PreparedStatement ps=con.prepareStatement(UPDATEROOMS);
+				
+				ps.setString(1, this.status);
+				ps.setInt(2, this.number);
+			
+				ps.executeUpdate();
+				
+			} catch (SQLException e) {
+				Utils.popError("Error al cargar la base de datos: Se recomienda reiniciar la aplicacion");
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.model.Room;
 import javafx.model.RoomDAO;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -52,7 +53,7 @@ public class RoomsController implements Initializable{
     private TableColumn<Room, Double> colPrice;
     
     @FXML
-    private TableColumn<Room, String> colStatus;
+    private TableColumn<Room, ComboBox<String>> colStatus;
     
     @FXML
     private MenuBar menuBar;
@@ -77,13 +78,16 @@ public class RoomsController implements Initializable{
     public void setTableRooms() {
     	RoomDAO r=new RoomDAO();
     	roomList=r.loadRoomList();
+    	
     	this.colNumber.setCellValueFactory(new PropertyValueFactory<Room, Integer>("number"));
     	this.colFloor.setCellValueFactory(new PropertyValueFactory<Room, Integer>("floor"));
     	this.colZone.setCellValueFactory(new PropertyValueFactory<Room, String>("zone"));
     	this.colCapacity.setCellValueFactory(new PropertyValueFactory<Room, Integer>("capacity"));
     	this.colType.setCellValueFactory(new PropertyValueFactory<Room, String>("type"));
     	this.colPrice.setCellValueFactory(new PropertyValueFactory<Room, Double>("price"));
-    	this.colStatus.setCellValueFactory(new PropertyValueFactory<Room, String>("status"));
+    	this.colStatus.setCellValueFactory(new PropertyValueFactory<Room, ComboBox<String>>("cbStatus"));
+    	
+    	//this.colStatus.getCellData(r).getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)-> System.out.println());
     	
     	this.roomsTable.setItems(roomList);
     }

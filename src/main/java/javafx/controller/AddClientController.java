@@ -147,7 +147,7 @@ public class AddClientController {
 	}
 	
 	public void setDatePicker(DatePicker dp) {
-		dp.setDayCellFactory(picker -> new DateCell() {
+		dp.setDayCellFactory(dia -> new DateCell() {
 	        public void updateItem(LocalDate date, boolean empty) {
 	            super.updateItem(date, empty);
 	            LocalDate today = LocalDate.now();

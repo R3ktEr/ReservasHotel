@@ -1,14 +1,17 @@
 package javafx.model;
 
+import javafx.scene.control.ComboBox;
+
 public class Room {
 
-	private int number;
-	private int floor;
-	private String zone;
-	private int capacity;
-	private String type;
-	private double price;
-	private String status;
+	protected int number;
+	protected int floor;
+	protected String zone;
+	protected int capacity;
+	protected String type;
+	protected double price;
+	protected String status;
+	protected ComboBox<String> cbStatus;
 	
 	public Room(int number, int floor, String zone, int capacity, String type, double price, String status) {
 		super();
@@ -108,6 +111,30 @@ public class Room {
 
 	public void setStatus(String status) {
 		this.status = status;
+		setCbStatus(status);
+	}
+	
+	public ComboBox<String> getCbStatus() {
+		return this.cbStatus;
+	}
+
+	public void setCbStatus(String status) {
+		ComboBox<String> statusCombo=new ComboBox<String>();
+    	statusCombo.getItems().add("Libre");
+    	statusCombo.getItems().add("Ocupada");
+    	statusCombo.getItems().add("Reservada");
+    	statusCombo.getItems().add("Sucia");
+    	
+    	statusCombo.getSelectionModel().select(status);
+    	statusCombo.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue)->{
+    		this.status=newValue;
+    		System.out.println(this.status);
+    		//llamar a roomDAO update status
+    		RoomDAO r=new RoomDAO(this.number, this.floor, this.zone, this.capacity, this.type, this.price, this.status);
+    		r.updateRoom();
+    	});
+    	
+		this.cbStatus = statusCombo;
 	}
 
 	@Override

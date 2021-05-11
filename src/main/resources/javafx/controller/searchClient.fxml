@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.SearchClientController">
+<AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.SearchClientController">
    <children>
       <Label layoutX="87.0" layoutY="24.0" text="Buscar Cliente" AnchorPane.topAnchor="24.0">
          <font>
@@ -75,7 +75,7 @@
             <Font name="Sitka Small" size="19.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpFrom" editable="false" layoutX="171.0" layoutY="337.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
-      <DatePicker fx:id="dpTo" editable="false" layoutX="171.0" layoutY="380.0" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
+      <DatePicker fx:id="dpFrom" editable="false" layoutX="171.0" layoutY="337.0" onHidden="#checkDatePickers" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
+      <DatePicker fx:id="dpTo" editable="false" layoutX="171.0" layoutY="380.0" onHidden="#checkDatePickers" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
    </children>
 </AnchorPane>

@@ -183,6 +183,7 @@ public class ClientsController implements Initializable{
 			Stage stage=new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
+			stage.setResizable(false);
 			stage.showAndWait();
 			
 			this.clientsTable.refresh();
@@ -245,6 +246,7 @@ public class ClientsController implements Initializable{
 			Stage stage=new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
+			stage.setResizable(false);
 			stage.showAndWait();
 			
 		} catch (IOException e) {

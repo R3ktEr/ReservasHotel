@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.model.Client;
@@ -14,11 +15,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.utils.Utils;
 
 public class SearchClientController implements Initializable{
 
+	@FXML
+	private AnchorPane background;
+	
     @FXML
     private TextField tfID;
 
@@ -125,10 +130,13 @@ public class SearchClientController implements Initializable{
 		
 	}
 	
-	//Que parametro recive? Porque peta con el actionEvent en el fxml On Action
 	@FXML
-	public void checkDatePickers(ActionEvent event) {
-		this.bSearch.setDisable(false);	
+	public void checkDatePickers(Event event) {
+		if(this.dpFrom.getValue()!=null||this.dpTo.getValue()!=null) {
+			this.bSearch.setDisable(false);			
+		}else {
+			this.bSearch.setDisable(true);
+		}
 	}
 	
 	@FXML
