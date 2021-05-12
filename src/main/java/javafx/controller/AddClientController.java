@@ -1,12 +1,16 @@
 package javafx.controller;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.model.Client;
 import javafx.model.ClientDAO;
 import javafx.model.Room;
@@ -16,10 +20,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.utils.Utils;
 
-public class AddClientController {
+public class AddClientController implements Initializable{
 	
 	@FXML
 	TextField tfName;
@@ -50,6 +55,17 @@ public class AddClientController {
 	
 	private Client client;
 	private ObservableList<Client> clientList;
+	
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		this.tfName.setPromptText("Introduzca un nombre");
+		this.tfNIF.setPromptText("Ej: 24124687T");
+		this.tfNationality.setPromptText("Ej: Alemania");
+		this.tfNCompanions.setPromptText("Ej: 2");
+		
+		this.bAdd.setDisable(true);
+	}
 	
 	public void initClientList(ObservableList<Client> clientList) {
 		RoomDAO r=new RoomDAO();
@@ -82,9 +98,6 @@ public class AddClientController {
 		this.dpTo.setEditable(false);
 		setDatePicker(dpTo);
 		this.cbRoom.setItems(freeRoomsList);;
-		this.tfName.setPromptText("Introduzca un nombre");
-		this.tfNIF.setPromptText("Ej: 24124687T");
-		this.tfNationality.setPromptText("Ej: Alemania");
 	}
 
 	@FXML
@@ -155,5 +168,35 @@ public class AddClientController {
 	            setDisable(empty || date.compareTo(today) < 0 );
 	        }
 	    });
+	}
+	
+	@FXML
+	public void checkFields(KeyEvent event) {
+
+		if(this.tfName.getText().isEmpty()==false||this.tfNIF.getText().isEmpty()==false||this.tfNationality.getText().isEmpty()==false
+		||this.tfNCompanions.getText().isEmpty()==false) {
+			this.bAdd.setDisable(false);				
+		}else {
+			this.bAdd.setDisable(true);
+		}
+		
+	}
+	
+	@FXML
+	public void checkComboBox(Event event) {
+		if(this.cbRoom.getValue()!=null) {
+			this.bAdd.setDisable(false);
+		}else {
+			this.bAdd.setDisable(true);
+		}
+	}
+	
+	@FXML
+	public void checkDatePickers(Event event) {
+		if(this.dpFrom.getValue()!=null||this.dpTo.getValue()!=null) {
+			this.bAdd.setDisable(false);			
+		}else {
+			this.bAdd.setDisable(true);
+		}
 	}
 }

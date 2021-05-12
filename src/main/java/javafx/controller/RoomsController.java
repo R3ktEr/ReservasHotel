@@ -27,9 +27,6 @@ public class RoomsController implements Initializable{
     
     @FXML
     Button bSearch;
-
-    @FXML
-    Button bChangeState;
     
     @FXML
     TableView<Room> roomsTable;
@@ -86,8 +83,6 @@ public class RoomsController implements Initializable{
     	this.colType.setCellValueFactory(new PropertyValueFactory<Room, String>("type"));
     	this.colPrice.setCellValueFactory(new PropertyValueFactory<Room, Double>("price"));
     	this.colStatus.setCellValueFactory(new PropertyValueFactory<Room, ComboBox<String>>("cbStatus"));
-    	
-    	//this.colStatus.getCellData(r).getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue)-> System.out.println());
     	
     	this.roomsTable.setItems(roomList);
     }

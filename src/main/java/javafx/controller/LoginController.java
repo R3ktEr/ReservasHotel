@@ -38,6 +38,7 @@ public class LoginController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		DBConnection.getDBConnection().loadSettings();
 		this.users=UserDAO.getUserDAO().loadUsers("users.xml");
 		
 		if(this.users==null) {

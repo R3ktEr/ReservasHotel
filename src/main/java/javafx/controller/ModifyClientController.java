@@ -109,16 +109,26 @@ public class ModifyClientController {
 		client2.setRoom(cbRoom.getSelectionModel().getSelectedItem().getNumber());
 		client2.setInistance(dpFrom.getValue());
 		client2.setEndstance(dpTo.getValue());
-		client2.setNcompanions(Integer.parseInt(tfNCompanions.getText()));
+		if(!this.tfNCompanions.getText().isEmpty()) {
+			client2.setNcompanions(Integer.parseInt(tfNCompanions.getText()));			
+			if(this.cbRoom.getSelectionModel().getSelectedItem().getCapacity()<Integer.parseInt(this.tfNCompanions.getText())&&valid) {
+				Utils.popError("Error: La capacidad de la habitacion no es suficiente");
+				this.tfNCompanions.setText("");
+				valid=false;
+			}
+		}
 		
 		if(!client2.getNIF().matches("[0-9]{8}[A-Z]")&&valid) {
 			Utils.popError("Error: Introduzca un NIF con el formato indicado");
+			this.tfNIF.setText(this.client.getNIF());
 			valid=false;
 		}
 		
-		if(this.cbRoom.getSelectionModel().getSelectedItem().getCapacity()<Integer.parseInt(this.tfNCompanions.getText())&&valid) {
-			Utils.popError("Error: La capacidad de la habitacion no es suficiente");
-			this.tfNCompanions.setText("");
+		if(this.tfName.getText().isEmpty()||this.tfNationality.getText().isEmpty()||this.tfNCompanions.getText().isEmpty()) {
+			Utils.popError("Error: Uno o varios campos estan vacíos");
+			this.tfName.setText(this.client.getName());
+			this.tfNationality.setText(this.client.getNationality());
+			this.tfNCompanions.setText(this.client.getNcompanions()+"");
 			valid=false;
 		}
 		

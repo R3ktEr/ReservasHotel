@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <server>jdbc:mysql://localhost</server>
+    <database>hotel</database>
+    <user>root</user>
+    <password></password>
+</settings>
