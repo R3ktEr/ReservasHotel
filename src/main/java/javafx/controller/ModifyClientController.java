@@ -113,7 +113,7 @@ public class ModifyClientController {
 			client2.setNcompanions(Integer.parseInt(tfNCompanions.getText()));			
 			if(this.cbRoom.getSelectionModel().getSelectedItem().getCapacity()<Integer.parseInt(this.tfNCompanions.getText())&&valid) {
 				Utils.popError("Error: La capacidad de la habitacion no es suficiente");
-				this.tfNCompanions.setText("");
+				this.tfNCompanions.setText(client.getNcompanions()+"");
 				valid=false;
 			}
 		}

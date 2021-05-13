@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.RoomsController">
+<AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showAllRooms" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.RoomsController">
    <children>
       <MenuBar fx:id="bMenu" layoutY="2.0" prefHeight="25.0" prefWidth="136.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
@@ -40,12 +40,12 @@
             <Font name="Sitka Small" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="bSeeAll" layoutX="573.0" layoutY="89.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Ver Todas">
+      <Button fx:id="bSeeAll" layoutX="573.0" layoutY="89.0" mnemonicParsing="false" onAction="#showAllRooms" prefHeight="25.0" prefWidth="77.0" text="Ver Todas">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bSearch" layoutX="366.0" layoutY="89.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Busqueda Avanzada">
+      <Button fx:id="bSearch" layoutX="366.0" layoutY="89.0" mnemonicParsing="false" onAction="#advancedSearch" prefHeight="25.0" prefWidth="140.0" text="Busqueda Avanzada">
          <font>
             <Font name="Sitka Small" size="12.0" />
          </font>

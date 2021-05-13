@@ -118,6 +118,7 @@ public class ClientsController implements Initializable{
 		this.clientList=cd.getAllClients();
 		
 		this.clientsTable.setItems(clientList);
+		this.clientsTable.getSortOrder().add(colID);
 		this.clientsTable.sort();
 	}
 	
@@ -169,6 +170,7 @@ public class ClientsController implements Initializable{
 			r.updateRoom(this.c.getRoom(), "Sucia");
 			this.clientList.remove(this.c);
 			Utils.popInfo("Cliente borrado con exito");
+			this.clientsTable.sort();
 		}
 	}
 	
@@ -191,6 +193,7 @@ public class ClientsController implements Initializable{
 			
 			this.clientsTable.refresh();
 			this.clientsTable.sort();
+			this.clientsTable.getSelectionModel().selectNext();
 			
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -261,5 +264,6 @@ public class ClientsController implements Initializable{
 	@FXML
 	public void showAllClients() {
 		this.clientsTable.setItems(clientList);
+		this.clientsTable.sort();
 	}
 }

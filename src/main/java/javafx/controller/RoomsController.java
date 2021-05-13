@@ -8,9 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.model.Room;
 import javafx.model.RoomDAO;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
@@ -21,8 +24,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class RoomsController implements Initializable{
+	
+	@FXML
+	AnchorPane background;
 	
     @FXML
     Button bSeeAll;
@@ -90,6 +99,8 @@ public class RoomsController implements Initializable{
     	this.colStatus.setCellValueFactory(new PropertyValueFactory<Room, ComboBox<String>>("cbStatus"));
     	
     	this.roomsTable.setItems(roomList);
+    	this.roomsTable.getSortOrder().add(colNumber);
+    	this.roomsTable.sort();
     }
 
 	@Override
@@ -133,5 +144,33 @@ public class RoomsController implements Initializable{
 			this.roomsTable.setItems(roomsFiltered);
 			this.roomsTable.sort();					
 		}
+	}
+	
+	@FXML
+	public void advancedSearch(ActionEvent event) {
+		try {
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("searchRoom.fxml"));
+			Parent root=loader.load();
+			SearchRoomController controller=loader.getController();
+			
+			controller.initAttributes(this.roomList, this.roomsTable);
+			
+			Scene scene=new Scene(root);
+			Stage stage=new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.showAndWait();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void showAllRooms() {
+		this.roomsTable.setItems(roomList);
+		this.roomsTable.sort();
 	}
 }

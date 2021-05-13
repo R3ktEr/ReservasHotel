@@ -1,6 +1,7 @@
 package javafx.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -91,31 +92,71 @@ public class SearchClientController implements Initializable{
 		
 		
 		if(valid) {
-			for (Client client : clientList) {
-				if((this.tfID.getText()!=null&&this.tfID.getText().isEmpty()==false)&&(client.getID()!=Integer.parseInt(this.tfID.getText()))) {
-					filteredClientList.remove(client);
-				}else if(!(client.getName().equals(this.tfName.getText()))&&(this.tfName.getText()!=null&&this.tfName.getText().isEmpty()==false)) {
-					filteredClientList.remove(client);
-				}else if(!(client.getNIF().equals(this.tfNIF.getText()))&&(this.tfNIF.getText()!=null&&this.tfNIF.getText().isEmpty()==false)) {
-					filteredClientList.remove(client);
-				}else if(!(client.getNationality().equals(this.tfNationality.getText()))&&(this.tfNationality.getText()!=null&&this.tfNationality.getText().isEmpty()==false)) {
-					filteredClientList.remove(client);
-				}else if((this.tfRoom.getText()!=null&&this.tfRoom.getText().isEmpty()==false)&&(client.getRoom()!=Integer.parseInt(this.tfRoom.getText()))) {
-					filteredClientList.remove(client);
-				}else if((this.tfCompanions.getText()!=null&&this.tfCompanions.getText().isEmpty()==false)&&(client.getNcompanions()!=Integer.parseInt(this.tfCompanions.getText()))) {
-					filteredClientList.remove(client);
-				}else if((this.dpFrom.getValue()!=null)&&(!client.getInistance().isEqual(this.dpFrom.getValue()))) {
-					filteredClientList.remove(client);
-				}else if((this.dpTo.getValue()!=null)&&(!client.getEndstance().isEqual(this.dpTo.getValue()))) {
-					filteredClientList.remove(client);
+			for (int i=0; i<clientList.size()&&valid; i++) {
+				if((this.tfID.getText()!=null&&this.tfID.getText().isEmpty()==false)&&(clientList.get(i).getID()!=Integer.parseInt(this.tfID.getText()))) {
+					filteredClientList.remove(clientList.get(i));
+				}else if(!(clientList.get(i).getName().equals(this.tfName.getText()))&&(this.tfName.getText()!=null&&this.tfName.getText().isEmpty()==false)) {
+					filteredClientList.remove(clientList.get(i));
+				}else if(!(clientList.get(i).getNIF().equals(this.tfNIF.getText()))&&(this.tfNIF.getText()!=null&&this.tfNIF.getText().isEmpty()==false)) {
+					filteredClientList.remove(clientList.get(i));
+				}else if(!(clientList.get(i).getNationality().equals(this.tfNationality.getText()))&&(this.tfNationality.getText()!=null&&this.tfNationality.getText().isEmpty()==false)) {
+					filteredClientList.remove(clientList.get(i));
+				}else if((this.tfRoom.getText()!=null&&this.tfRoom.getText().isEmpty()==false)&&(clientList.get(i).getRoom()!=Integer.parseInt(this.tfRoom.getText()))) {
+					filteredClientList.remove(clientList.get(i));
+				}else if((this.tfCompanions.getText()!=null&&this.tfCompanions.getText().isEmpty()==false)&&(clientList.get(i).getNcompanions()!=Integer.parseInt(this.tfCompanions.getText()))) {
+					filteredClientList.remove(clientList.get(i));
+				}else if(this.dpFrom.getValue()!=null||this.dpTo.getValue()!=null) {
+					if(checkDateValues()) {
+						if(checkDateRangeIsCorrect(this.dpFrom.getValue(), this.dpTo.getValue())){
+							if((checkDateRange(clientList.get(i), this.dpFrom.getValue(), this.dpTo.getValue()))==false){
+								filteredClientList.remove(clientList.get(i));
+							}							
+						}else {
+							valid=false;
+						}
+					}else {
+						valid=false;
+					}
+				}else if((this.dpTo.getValue()!=null)&&(!clientList.get(i).getEndstance().isEqual(this.dpTo.getValue()))) {
+					filteredClientList.remove(clientList.get(i));
 				}
 			}		
 			
-			this.tableClient.setItems(filteredClientList);
-			
-			Stage stage=(Stage) this.bSearch.getScene().getWindow();
-			stage.close();
+			if(valid) {
+				this.tableClient.setItems(filteredClientList);
+				this.tableClient.sort();
+				
+				Stage stage=(Stage) this.bSearch.getScene().getWindow();
+				stage.close();				
+			}
 		}	
+	}
+	
+	private boolean checkDateValues() {
+		if(this.dpFrom.getValue()!=null&&this.dpTo.getValue()!=null) {
+			return true;
+		}else {
+			Utils.popError("Error: El rango de fechas se debe componer de dos fechas");
+			return false;
+		}
+	}
+	
+	private boolean checkDateRangeIsCorrect(LocalDate from, LocalDate to) {
+		if(from.isBefore(to)) {
+			return true;
+		}else {
+			Utils.popError("Error: La fecha de partida es posterior a la fecha destino");
+			return false;
+		}
+	}
+	
+	private boolean checkDateRange(Client client, LocalDate from, LocalDate to) {
+		//Si inistance y endstance estan dentro del rango de from y to
+		if((client.getInistance().isEqual(from)||client.getInistance().isAfter(from))&&(client.getEndstance().isEqual(to)||client.getEndstance().isBefore(to))) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@FXML

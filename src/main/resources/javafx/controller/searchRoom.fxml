@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.SearchRoomController">
    <children>
       <Label layoutX="40.0" layoutY="14.0" text="Buscar Habitacion" AnchorPane.topAnchor="20.0">
          <font>
@@ -49,30 +49,30 @@
             <Font name="Sitka Small" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="tNumber" layoutX="153.0" layoutY="89.0" AnchorPane.topAnchor="90.0" />
-      <ChoiceBox fx:id="cbFloor" layoutX="152.0" layoutY="139.0" prefWidth="150.0" AnchorPane.topAnchor="140.0" />
-      <ChoiceBox fx:id="cbZone" layoutX="152.0" layoutY="189.0" prefWidth="150.0" AnchorPane.topAnchor="190.0" />
-      <ChoiceBox fx:id="cbCapacity" layoutX="153.0" layoutY="239.0" prefWidth="150.0" AnchorPane.topAnchor="240.0" />
-      <ChoiceBox fx:id="cbType" layoutX="152.0" layoutY="289.0" prefWidth="150.0" AnchorPane.topAnchor="290.0" />
-      <ChoiceBox fx:id="cbFrom" layoutX="153.0" layoutY="339.0" prefHeight="25.0" prefWidth="52.0" />
-      <ChoiceBox fx:id="cbTo" layoutX="251.0" layoutY="339.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="tfNumber" layoutX="153.0" layoutY="89.0" onKeyTyped="#checkFields" AnchorPane.topAnchor="90.0" />
+      <ComboBox fx:id="cbFloor" layoutX="152.0" layoutY="139.0" onHidden="#checkComboBoxes" prefWidth="150.0" />
+      <ComboBox fx:id="cbZone" layoutX="153.0" layoutY="189.0" onHidden="#checkComboBoxes" prefWidth="150.0" />
+      <ComboBox fx:id="cbCapacity" layoutX="153.0" layoutY="239.0" onHidden="#checkComboBoxes" prefWidth="150.0" />
+      <ComboBox fx:id="cbType" layoutX="154.0" layoutY="289.0" onHidden="#checkComboBoxes" prefWidth="150.0" />
+      <ComboBox fx:id="cbState" layoutX="154.0" layoutY="389.0" onHidden="#checkComboBoxes" prefWidth="150.0" />
+      <TextField fx:id="tfFrom" layoutX="155.0" layoutY="340.0" onKeyTyped="#checkFields" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="tfTo" layoutX="252.0" layoutY="339.0" onKeyTyped="#checkFields" prefHeight="25.0" prefWidth="52.0" />
       <Label layoutX="119.0" layoutY="341.0" text="De">
          <font>
             <Font name="Sitka Small" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="340.0" text="A">
+      <Label layoutX="222.0" layoutY="340.0" text="A">
          <font>
             <Font name="Sitka Small" size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="cbState" layoutX="152.0" layoutY="389.0" prefWidth="150.0" AnchorPane.topAnchor="390.0" />
-      <Button fx:id="bSearch" layoutX="40.0" layoutY="466.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="120.0" text="Buscar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
+      <Button fx:id="bSearch" layoutX="40.0" layoutY="466.0" mnemonicParsing="false" onAction="#search" prefHeight="43.0" prefWidth="120.0" text="Buscar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font name="Sitka Small" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="bExit" layoutX="191.0" layoutY="466.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="120.0" text="Salir" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
+      <Button fx:id="bExit" layoutX="191.0" layoutY="466.0" mnemonicParsing="false" onAction="#exit" prefHeight="43.0" prefWidth="120.0" text="Salir" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <font>
             <Font name="Sitka Small" size="23.0" />
          </font>
