@@ -18,7 +18,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 public class RoomsController implements Initializable{
 	
@@ -27,6 +29,9 @@ public class RoomsController implements Initializable{
     
     @FXML
     Button bSearch;
+    
+    @FXML
+    TextField tfSearch;
     
     @FXML
     TableView<Room> roomsTable;
@@ -90,6 +95,43 @@ public class RoomsController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.roomList=FXCollections.observableArrayList();
+		this.tfSearch.setPromptText("Ej: 8");
 		setTableRooms();
+	}
+	
+	@FXML
+	public void filterByNumber(KeyEvent event) {
+		String filter="-1";
+		boolean valid=true;
+		
+		if(this.tfSearch.getText().isEmpty()==false) {
+			String s=this.tfSearch.getText();
+			
+			for (int i = 0; i < s.length(); i++) {
+				if(s.charAt(i)<'0'||s.charAt(i)>'9') {
+					valid=false;
+				}
+			}
+			
+			if(valid) {
+				filter=this.tfSearch.getText();							
+			}
+		}
+		
+		if(filter.equals("-1")) {
+			this.roomsTable.setItems(roomList);
+		}else {
+			ObservableList<Room> roomsFiltered=FXCollections.observableArrayList();
+			roomsFiltered.clear();
+			
+			for (Room room : this.roomList) {
+				if((room.getNumber()+"").startsWith(filter)) {
+					roomsFiltered.add(room);
+				}
+			}	
+			
+			this.roomsTable.setItems(roomsFiltered);
+			this.roomsTable.sort();					
+		}
 	}
 }

@@ -94,6 +94,9 @@ public class ClientDAO extends Client{
 				
 				ps.executeUpdate();
 				getDatabaseID();
+				
+				RoomDAO r=new RoomDAO();
+				r.updateRoom(this.room, "Reservada");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

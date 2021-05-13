@@ -110,4 +110,23 @@ public class RoomDAO extends Room{
 			}
 		}
 	}
+	
+	public void updateRoom(int number, String status) {
+		Connection con=DBConnection.getConnection();
+		
+		if(con!=null) {
+			try {
+				PreparedStatement ps=con.prepareStatement(UPDATEROOMS);
+				
+				ps.setString(1, status);
+				ps.setInt(2, number);
+			
+				ps.executeUpdate();
+				
+			} catch (SQLException e) {
+				Utils.popError("Error al cargar la base de datos: Se recomienda reiniciar la aplicacion");
+				e.printStackTrace();
+			}
+		}
+	}
 }

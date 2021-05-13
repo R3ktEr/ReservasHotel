@@ -128,8 +128,6 @@ public class Room {
     	statusCombo.getSelectionModel().select(status);
     	statusCombo.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue)->{
     		this.status=newValue;
-    		System.out.println(this.status);
-    		//llamar a roomDAO update status
     		RoomDAO r=new RoomDAO(this.number, this.floor, this.zone, this.capacity, this.type, this.price, this.status);
     		r.updateRoom();
     	});

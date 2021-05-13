@@ -64,6 +64,8 @@
       <TextField fx:id="tfNIF" layoutX="137.0" layoutY="187.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="195.0" AnchorPane.rightAnchor="50.0" />
       <TextField fx:id="tfNationality" layoutX="161.0" layoutY="238.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
       <TextField fx:id="tfRoom" layoutX="167.0" layoutY="287.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="142.0" AnchorPane.rightAnchor="50.0" />
+      <DatePicker fx:id="dpFrom" editable="false" layoutX="171.0" layoutY="337.0" onHidden="#checkDatePickers" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
+      <DatePicker fx:id="dpTo" editable="false" layoutX="171.0" layoutY="380.0" onHidden="#checkDatePickers" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
       <TextField fx:id="tfCompanions" layoutX="195.0" layoutY="437.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="95.0" AnchorPane.rightAnchor="50.0" />
       <Button fx:id="bSearch" layoutX="68.0" layoutY="487.0" mnemonicParsing="false" onAction="#searchClient" text="Buscar" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="60.0">
          <font>
@@ -75,7 +77,5 @@
             <Font name="Sitka Small" size="19.0" />
          </font>
       </Button>
-      <DatePicker fx:id="dpFrom" editable="false" layoutX="171.0" layoutY="337.0" onHidden="#checkDatePickers" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
-      <DatePicker fx:id="dpTo" editable="false" layoutX="171.0" layoutY="380.0" onHidden="#checkDatePickers" prefHeight="25.0" prefWidth="128.0" AnchorPane.rightAnchor="50.0" />
    </children>
 </AnchorPane>

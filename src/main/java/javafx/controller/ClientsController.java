@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.model.Client;
 import javafx.model.ClientDAO;
+import javafx.model.RoomDAO;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -164,6 +165,8 @@ public class ClientsController implements Initializable{
 		}else if(Utils.popConfirmation("¿Estas seguro de que quieres borrar este cliente?")){
 			ClientDAO c=new ClientDAO(this.c);
 			c.deleteClientByID();
+			RoomDAO r=new RoomDAO();
+			r.updateRoom(this.c.getRoom(), "Sucia");
 			this.clientList.remove(this.c);
 			Utils.popInfo("Cliente borrado con exito");
 		}

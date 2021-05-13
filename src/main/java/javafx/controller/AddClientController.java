@@ -104,46 +104,51 @@ public class AddClientController implements Initializable{
 	public void add(ActionEvent event) {
 		boolean valid=true;
 		
-		client=new Client();
-		//DateTimeFormatter f=DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		
-		client.setName(tfName.getText());
-		client.setNIF(tfNIF.getText());
-		client.setNationality(tfNationality.getText());
-		client.setRoom(cbRoom.getSelectionModel().getSelectedItem().getNumber());
-		client.setInistance(dpFrom.getValue());
-		client.setEndstance(dpTo.getValue());
-		client.setNcompanions(Integer.parseInt(tfNCompanions.getText()));
-		
-		if(!client.getNIF().matches("[0-9]{8}[A-Z]")&&valid) {
-			Utils.popError("Error: Introduzca un NIF con el formato indicado");
-			valid=false;
-		}
-		
-		if(this.clientList.contains(client)&&valid) {
-			Utils.popError("Error, el cliente ya existe");
-			valid=false;
-		}
-		
-		if(this.cbRoom.getSelectionModel().getSelectedItem().getCapacity()<Integer.parseInt(this.tfNCompanions.getText())&&valid) {
-			Utils.popError("Error: La capacidad de la habitacion no es suficiente");
-			this.tfNCompanions.setText("");
-			valid=false;
-		}
-		
-		if(valid) {
+		if(this.tfName.getText()!=null&&this.tfName.getText().isEmpty()==false&&this.tfNIF.getText()!=null&&this.tfNIF.getText().isEmpty()==false
+		&&this.tfNationality.getText()!=null&&this.tfNationality.getText().isEmpty()==false&&this.cbRoom.getValue()!=null&&this.dpFrom.getValue()!=null&&
+		this.dpTo.getValue()!=null&&this.tfNCompanions.getText()!=null&&this.tfNCompanions.getText().isEmpty()==false) {
 			
-			ClientDAO cd=new ClientDAO(client);
-			cd.saveClient();
+			client=new Client();
+			client.setName(tfName.getText());
+			client.setNIF(tfNIF.getText());
+			client.setNationality(tfNationality.getText());
+			client.setRoom(cbRoom.getSelectionModel().getSelectedItem().getNumber());
+			client.setInistance(dpFrom.getValue());
+			client.setEndstance(dpTo.getValue());
+			client.setNcompanions(Integer.parseInt(tfNCompanions.getText()));
 			
-			client=(Client) cd;
-			
-			if(client!=null) {
-				this.clientList.add(client);						
+			if(!client.getNIF().matches("[0-9]{8}[A-Z]")&&valid) {
+				Utils.popError("Error: Introduzca un NIF con el formato indicado");
+				valid=false;
 			}
 			
-			Stage stage=(Stage) this.bAdd.getScene().getWindow();
-			stage.close();
+			if(this.clientList.contains(client)&&valid) {
+				Utils.popError("Error, el cliente ya existe");
+				valid=false;
+			}
+			
+			if(this.cbRoom.getSelectionModel().getSelectedItem().getCapacity()<Integer.parseInt(this.tfNCompanions.getText())&&valid) {
+				Utils.popError("Error: La capacidad de la habitacion no es suficiente");
+				this.tfNCompanions.setText("");
+				valid=false;
+			}
+			
+			if(valid) {
+				
+				ClientDAO cd=new ClientDAO(client);
+				cd.saveClient();
+				
+				client=(Client) cd;
+				
+				if(client!=null) {
+					this.clientList.add(client);						
+				}
+				
+				Stage stage=(Stage) this.bAdd.getScene().getWindow();
+				stage.close();
+			}
+		}else {
+			Utils.popError("Error: Uno o varios campos están vacíos");
 		}
 	}
 	
