@@ -21,31 +21,31 @@ import javafx.utils.Utils;
 
 public class ModifyClientController {
 	@FXML
-	TextField tfName;
+	private TextField tfName;
 	
 	@FXML
-	TextField tfNIF;
+	private TextField tfNIF;
 	
 	@FXML
-	TextField tfNationality;
+	private TextField tfNationality;
 	
 	@FXML
-	ComboBox<Room> cbRoom; 
+	private ComboBox<Room> cbRoom; 
 	
 	@FXML
-	TextField tfNCompanions;
+	private TextField tfNCompanions;
 	
 	@FXML
-	DatePicker dpFrom;
+	private DatePicker dpFrom;
 	
 	@FXML
-	DatePicker dpTo;
+	private DatePicker dpTo;
 	
 	@FXML
-	Button bModify;
+	private Button bModify;
 	
 	@FXML
-	Button bExit;
+	private Button bExit;
 	
 	private Client client;
 	private ObservableList<Client> clientList=FXCollections.observableArrayList();
@@ -59,7 +59,6 @@ public class ModifyClientController {
 
 		this.roomsList=r.loadRoomList();
 		
-		//Implementar la lista de habitaciones libres
 		Iterator<Room> roomIterator=roomsList.iterator();
 		
 		while(roomIterator.hasNext()) {
@@ -100,8 +99,7 @@ public class ModifyClientController {
 	public void modify(ActionEvent event) {
 		boolean valid=true;
 		Client client2=new Client();
-		
-		//DateTimeFormatter f=DateTimeFormatter.ofPattern("dd-MM-yyyy");		
+	
 		client2.setID(client.getID());
 		client2.setName(tfName.getText());
 		client2.setNIF(tfNIF.getText());

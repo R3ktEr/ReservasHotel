@@ -27,31 +27,31 @@ import javafx.utils.Utils;
 public class AddClientController implements Initializable{
 	
 	@FXML
-	TextField tfName;
+	private TextField tfName;
 	
 	@FXML
-	TextField tfNIF;
+	private TextField tfNIF;
 	
 	@FXML
-	TextField tfNationality;
+	private TextField tfNationality;
 	
 	@FXML
-	ComboBox<Room> cbRoom; 
+	private ComboBox<Room> cbRoom; 
 	
 	@FXML
-	TextField tfNCompanions;
+	private TextField tfNCompanions;
 	
 	@FXML
-	DatePicker dpFrom;
+	private DatePicker dpFrom;
 	
 	@FXML
-	DatePicker dpTo;
+	private DatePicker dpTo;
 	
 	@FXML
-	Button bAdd;
+	private Button bAdd;
 	
 	@FXML
-	Button bExit;
+	private Button bExit;
 	
 	private Client client;
 	private ObservableList<Client> clientList;

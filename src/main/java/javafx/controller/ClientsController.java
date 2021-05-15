@@ -34,28 +34,28 @@ import javafx.utils.Utils;
 public class ClientsController implements Initializable{
 
 	@FXML
-	AnchorPane background;
+	private AnchorPane background;
 	
 	@FXML
-	Button bSeeAll;
+	private Button bSeeAll;
 	 
 	@FXML
-	Button bSearch;
+	private Button bSearch;
 	 
 	@FXML
-	Button bAdd;
+	private Button bAdd;
 	 
 	@FXML
-	Button bModify;
+	private Button bModify;
 	 
 	@FXML
-	Button bDelete;
+	private Button bDelete;
 	
 	@FXML
-	TextField tfFilter;
+	private TextField tfFilter;
 	 
 	@FXML
-	TableView<Client> clientsTable;
+	private TableView<Client> clientsTable;
 	 
 	@FXML
 	private TableColumn<Client, Integer> colID;

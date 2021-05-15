@@ -74,9 +74,10 @@ public class SearchRoomController implements Initializable{
 		
 		if(onlyNumbers(this.tfNumber, "Error: Formato de ID incorrecto")) {
 			if(onlyNumbers(this.tfFrom, "Error: Rango de precio incorrecto")&&onlyNumbers(this.tfTo, "Error: Rango de precio incorrecto")) {
+				valid=true;
+			}else {
 				this.tfFrom.clear();
 				this.tfTo.clear();
-				valid=true;
 			}
 		}
 		

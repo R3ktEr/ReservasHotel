@@ -4,4 +4,8 @@
         <password>1234</password>
         <username>usuario</username>
     </user>
+    <user>
+        <password>admin</password>
+        <username>admin</username>
+    </user>
 </users>

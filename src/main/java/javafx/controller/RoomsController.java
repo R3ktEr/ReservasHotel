@@ -31,19 +31,19 @@ import javafx.stage.Stage;
 public class RoomsController implements Initializable{
 	
 	@FXML
-	AnchorPane background;
+	private AnchorPane background;
 	
     @FXML
-    Button bSeeAll;
+    private Button bSeeAll;
     
     @FXML
-    Button bSearch;
+    private Button bSearch;
     
     @FXML
-    TextField tfSearch;
+    private TextField tfSearch;
     
     @FXML
-    TableView<Room> roomsTable;
+    private TableView<Room> roomsTable;
     
     @FXML
     private TableColumn<Room, Integer> colNumber;

@@ -60,7 +60,6 @@ public class User {
 		return password;
 	}
 	
-	//Implementar regex
 	public void setPassword(String password) {
 		this.password = password;
 	}
