@@ -172,5 +172,6 @@ public class RoomsController implements Initializable{
 	public void showAllRooms() {
 		this.roomsTable.setItems(roomList);
 		this.roomsTable.sort();
+		this.tfSearch.clear();
 	}
 }

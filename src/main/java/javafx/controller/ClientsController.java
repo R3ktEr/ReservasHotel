@@ -215,6 +215,7 @@ public class ClientsController implements Initializable{
 		this.bModify.setDisable(true);
 		this.bDelete.setDisable(true);
 		this.clientsTable.setItems(clientList);
+		this.tfFilter.clear();
 	}
 	
 	@FXML
@@ -265,5 +266,6 @@ public class ClientsController implements Initializable{
 	public void showAllClients() {
 		this.clientsTable.setItems(clientList);
 		this.clientsTable.sort();
+		this.tfFilter.clear();
 	}
 }
